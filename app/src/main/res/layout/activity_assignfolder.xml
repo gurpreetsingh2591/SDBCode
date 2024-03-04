@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#6d000000"
+        android:elevation="@dimen/_10sdp"
+        android:visibility="gone">
+
+
+        <androidx.cardview.widget.CardView
+
+
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:cardBackgroundColor="@color/colorwhite"
+
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_10sdp">
+
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi_load"
+
+                style="@style/AVLoadingIndicatorView"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:elevation="@dimen/_10sdp"
+                android:visibility="gone"
+                app:indicatorColor="@color/app_color"
+                app:indicatorName="BallSpinFadeLoaderIndicator" />
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80sdp"
+            android:background="@color/app_color">
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/_10sdp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+                <TextView
+                    android:id="@+id/acc_name"
+                    android:layout_toEndOf="@+id/acc_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_centerVertical="true"
+                    android:text="FILES"
+                    android:textColor="@color/colorwhite"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:elevation="@dimen/_10sdp"
+                    android:id="@+id/back_icon"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    app:srcCompat="@drawable/back_icon"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp" />
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/_10sdp"
+
+                    android:layout_marginRight="@dimen/_2sdp"
+
+                    android:layout_toEndOf="@+id/back_icon"
+                    android:id="@+id/acc_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_centerVertical="true"
+
+                    app:srcCompat="@drawable/unselect_profile" />
+
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:weightSum="1"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp">
+
+
+                <EditText
+                    android:inputType="text"
+                    android:drawableLeft="@drawable/search_icon"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:id="@+id/serach_txt"
+                    android:layout_weight="0.3"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@color/colorwhite"
+                    android:hint="Serach"
+
+                    android:textCursorDrawable="@drawable/color_cursor" />
+
+                <RelativeLayout
+                    android:layout_weight="0.7"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <Button
+                        android:id="@+id/serach_btn"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+
+                        android:textColor="@color/app_color"
+                        android:background="@color/colorwhite"
+                        android:text="search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="visible"
+                app:indicatorColor="@color/app_color"
+                app:indicatorName="BallSpinFadeLoaderIndicator" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/folder_recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+            <TextView
+                android:elevation="@dimen/_10sdp"
+                android:visibility="gone"
+                android:id="@+id/empty_txt"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:textSize="@dimen/_20sdp"
+                android:textColor="@color/app_color"
+                android:text="ADD FILE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

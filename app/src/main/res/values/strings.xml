@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Skip Da Boxes</string>
+    <string name="passowrd">Password</string>
+    <string name="forgot">Forgot password?</string>
+    <string name="newUser">New to Skip Da Boxes?</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="terms_conditions">By Signing in, you agree to our .</string>
+    <!--<string name="raggae_gospel"><![CDATA[Raggae & Gospel]]></string>-->
+    <string name="create_folder">Create Folder</string>
+    <string name="create_sub_folder">Add Sub-Folder</string>
+    <string name="recent_scanned_docs">Recent Scanned Docs</string>
+    <string name="select_year">Select Year</string>
+    <string name="save_as_one_document">Save as one document</string>
+    <string name="upload">Upload</string>
+    <string name="filename">Filename</string>
+    <string name="no_recent_file">You don\'t have any recent docs</string>
+    <string name="add_file">ADD FILE</string>
+    <string name="select_file">Select File</string>
+    <string name="cost">Cost</string>
+    <string name="referral_code_copied">Referral Code Copied</string>
+
+
+    <!--Image Picker messages-->
+    <string name="flash_auto">Flash auto</string>
+    <string name="flash_off">Flash off</string>
+    <string name="flash_on">Flash on</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_select">No Select</string>
+    <string name="vInfo">Version Info</string>
+
+    <string name="post_ads">Post Ad</string>
+    <string name="ads_packages">Ads Packages</string>
+    <string name="text_ad_title">%s</string>
+    <string name="text_ad_category">%s</string>
+    <string name="text_ad_sub_category">%s</string>
+    <string name="text_ad_url">%s</string>
+    <string name="text_ad_phone">%s</string>
+    <string name="text_ad_address">%s</string>
+    <string name="text_hint_add_title">Title</string>
+    <string name="text_hint_ad_url">URL/Website</string>
+    <string name="text_hint_phone">012–345–6789</string>
+    <string name="text_upload_photo">Upload</string>
+    <string name="err_enter_mobile_number">Please enter mobile number</string>
+    <string name="error_phone_number">Phone Number is not valid</string>
+    <string name="text_ad_status">%s</string>
+    <string name="notifications">Notifications</string>
+    <string name="invite_accountant">Invite Accountant</string>
+</resources>

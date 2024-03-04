@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/view_title_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@color/tedbottompicker_white"
+        android:gravity="start|center">
+
+        <TextView
+            android:id="@+id/tv_left_icon"
+            fontPath="@string/font_awesome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toLeftOf="@+id/tv_title"
+            android:text="@string/up"
+            android:textColor="@color/tedbottompicker_camera"
+            android:textSize="20sp"
+            tools:ignore="MissingPrefix,RtlHardcoded" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/swipe_up_for_gallery"
+            android:textColor="@color/tedbottompicker_camera"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_right_icon"
+            fontPath="@string/font_awesome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_toEndOf="@id/tv_title"
+            android:layout_toRightOf="@id/tv_title"
+            android:text="@string/up"
+            android:textColor="@color/tedbottompicker_camera"
+            android:textSize="20sp"
+            tools:ignore="MissingPrefix" />
+
+        <ImageView
+            android:id="@+id/crop"
+            android:src="@drawable/crop"
+            android:visibility="gone"
+            android:layout_marginLeft="20dp"
+            android:layout_toLeftOf="@+id/iv_done"
+            android:layout_toRightOf="@+id/tv_right_icon"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/iv_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_done_black_24dp" />
+
+        <ImageView
+            android:id="@+id/iv_final"
+            android:layout_marginLeft="20dp"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/right_arrow" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/tedbottompicker_selected" />
+
+    <FrameLayout
+        android:id="@+id/selected_photos_container_frame"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tedbottompicker_selected_image_height">
+
+        <HorizontalScrollView
+            android:id="@+id/hsv_selected_photos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/tedbottompicker_selected"
+            android:fillViewport="false"
+            android:foregroundGravity="left">
+
+            <LinearLayout
+                android:id="@+id/selected_photos_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:animateLayoutChanges="false"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:visibility="gone" />
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/selected_photos_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_image"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?attr/colorAccent" />
+    </FrameLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "140024447870",
+    "firebase_url": "https://sdba-a16a3-default-rtdb.firebaseio.com",
+    "project_id": "sdba-a16a3",
+    "storage_bucket": "sdba-a16a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140024447870:android:a2e74301c97da4e599692f",
+        "android_client_info": {
+          "package_name": "expense.exp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140024447870-4dogq9566bgpqap4i76kb6q2c43gjs1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe3l62MpDT9y4IhUITMD5S7KmAIrhhWKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140024447870-4dogq9566bgpqap4i76kb6q2c43gjs1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/check_folder"
+        android:icon="@drawable/check_folder"
+        android:title="Folder" />
+
+    <item
+        android:id="@+id/check_profile"
+        android:icon="@drawable/check_profile"
+        android:title="Profile" />
+    <item
+        android:id="@+id/check_setting"
+        android:icon="@drawable/check_setting"
+        android:title="Settings" />
+
+
+
+</menu>

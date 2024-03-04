@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="expense.exp"
+    android:versionCode="7"
+    android:versionName="1.6">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
+        tools:ignore="ScopedStorage"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<!--    <uses-permission android:name="android.permission.CAMERA" />-->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <permission android:name="android.permission.MEDIA_CONTENT_CONTROL"
+        tools:ignore="ReservedSystemPermission" />
+
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="n">
+        <activity
+            android:name=".activity.NotificationActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.SignatureActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false"
+            android:screenOrientation="portrait"/>
+
+        <meta-data
+            android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="false"
+            android:screenOrientation="portrait"/>
+        <meta-data
+            android:name="android.webkit.WebView.MetricsOptOut"
+            android:value="true"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.PlanListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity android:name=".activity.UploadPdfActivity" />
+        <activity android:name=".activity.ReferActivity" />
+        <activity android:name=".activity.WebActivity" />
+        <activity android:name=".activity.CropActivity" />
+        <activity android:name=".ImageGridActivity" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.Login_activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Home_Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+                <data android:mimeType="application/*" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ShowFileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.DocumentViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ChangePassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AssignFolderAccountantActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UploadFileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.gun0912.tedpicker.ImagePickerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Full_View_Image"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".imagepicker.ImagePickerDemo"
+            android:screenOrientation="portrait"
+            android:theme="@style/PickerAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.PostAds_activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EditAds_activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AdsDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AdsPackageListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".chat.Chat"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Path>
+    <external-path
+        name="external_files"
+        path="Android/data/com.kifaceapp/files/Pictures" />
+    <external-path
+        name="external_files"
+        path="." />
+    <external-path
+        name="external_files"
+        path="/file:/storage/emulated/0/Android/data/expense.exp/files/Pictures" />
+
+    <external-path name="external_files" path="/" />
+
+</Path>

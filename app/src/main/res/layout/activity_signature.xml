@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".activity.SignatureActivity">
+    <RelativeLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@color/app_color">
+
+        <ImageView
+            android:id="@+id/back_icon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            app:srcCompat="@drawable/back_icon" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Signature"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_edittext_bg"
+        android:layout_margin="@dimen/_10sdp">
+        <com.kyanogen.signatureview.SignatureView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:sign="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:id="@+id/signature_view"
+            sign:enableSignature="true"
+            android:layout_margin="@dimen/_2sdp"
+            sign:penSize="3dp"
+            sign:backgroundColor="#ffffff"
+            sign:penColor="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_margin="@dimen/_10sdp">
+
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Clear"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Add"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</LinearLayout>

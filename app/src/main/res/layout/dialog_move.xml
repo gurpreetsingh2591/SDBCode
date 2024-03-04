@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#b7000000"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:cardElevation="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardBackgroundColor="@color/colorwhite"
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/a"
+                android:background="@color/colorwhite"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp">
+                <ImageView
+                    android:id="@+id/cancel_icon"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_alignParentRight="true"
+                    app:srcCompat="@drawable/cancel_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/app_color"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="Select Folder"
+                    android:textSize="22sp"
+                    android:textStyle="bold"/>
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/folder_icon"
+                    android:scaleType="fitCenter" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_below="@+id/a"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/folder1_recycleview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_5sdp"
+                                  />
+                                    <Button
+                    android:id="@+id/add_folder_btn"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/app_color"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorwhite"
+                    android:text="Add Folder"
+                                        android:visibility="gone"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_40sdp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+        ></androidx.cardview.widget.CardView>
+
+
+    <RelativeLayout
+        android:elevation="@dimen/_10sdp"
+        android:id="@+id/loading_view"
+        android:background="#6d000000"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.cardview.widget.CardView
+
+            app:cardBackgroundColor="@color/colorwhite"
+            app:cardElevation="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp">
+
+
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_gravity="center"
+
+                android:elevation="@dimen/_10sdp"
+
+                android:id="@+id/avi"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:indicatorColor="@color/app_color"
+                app:indicatorName="BallSpinFadeLoaderIndicator" />
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

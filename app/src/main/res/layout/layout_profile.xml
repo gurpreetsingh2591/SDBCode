@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/header_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@color/app_color">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="PROFILE"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            android:layout_marginRight="@dimen/_10sdp"
+            android:text="SAVE"
+
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:id="@+id/back_icon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentLeft="true"
+
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            app:srcCompat="@drawable/back_icon" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/view_profile"
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_140sdp"
+        android:layout_below="@+id/header_view">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/user_profile_icon" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view_profile"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/login_edittext_bg"
+                android:gravity="center_vertical"
+                android:hint="Username"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="@dimen/_10sdp"
+                android:singleLine="true"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+            <EditText
+                android:id="@+id/email_id"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/login_edittext_bg"
+                android:editable="false"
+                android:gravity="center_vertical"
+                android:hint="Email Id"
+                android:paddingLeft="@dimen/_10sdp"
+                android:singleLine="true"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+
+            <EditText
+
+                android:id="@+id/phone"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/login_edittext_bg"
+                android:gravity="center_vertical"
+                android:hint="Phone"
+                android:maxLength="10"
+                android:inputType="number"
+                android:paddingLeft="@dimen/_10sdp"
+                android:singleLine="true"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/state_lay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+
+            <EditText
+                android:id="@+id/state"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/login_edittext_bg"
+                android:gravity="center_vertical"
+                android:hint="Province"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="@dimen/_10sdp"
+                android:singleLine="true"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/col_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@drawable/login_edittext_bg"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+            <Spinner
+                android:id="@+id/fieldtypeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:hint="@string/confirmPassword"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="16sp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/colg_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@drawable/login_edittext_bg"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/tv_colg"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerVertical="true"
+                android:editable="false"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_10sdp"
+                android:singleLine="true"
+                android:textColor="@color/colorblack"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/collegetypeSpinner"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:hint="@string/confirmPassword"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/_10sdp"
+                android:singleLine="true"
+                android:textCursorDrawable="@drawable/color_cursor"
+
+                android:textSize="16sp"
+
+                android:visibility="visible" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/view_loding"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#89000000"
+        android:visibility="gone">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="visible"
+            app:indicatorColor="@color/app_color"
+            app:indicatorName="BallSpinFadeLoaderIndicator" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
