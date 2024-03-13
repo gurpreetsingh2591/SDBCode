@@ -115,24 +115,28 @@ public class Home_Activity extends AppCompatActivity {
 
         sharedPrefManager = new SharedPrefManager(this);
         Log.d("usr_id", new SharedPrefManager(this).getuserinfo().getId());
+        Log.d("usr_type", String.valueOf(sharedPrefManager.getuserinfo().getType().equals("user")));
 
         if (sharedPrefManager.getuserinfo().getType().equals("user")) {
             binding.bottomNavigationView.setVisibility(View.VISIBLE);
             binding.bottomNavigation.setVisibility(View.GONE);
-            binding.homeContainer.setVisibility(View.VISIBLE);
-        } else {
-            binding.bottomNavigationView.setVisibility(View.GONE);
-            binding.bottomNavigation.setVisibility(View.VISIBLE);
             binding.homeContainer.setVisibility(View.GONE);
-
+            binding.frameContainer.setVisibility(View.VISIBLE);
             Folder_Fragment fragment = new Folder_Fragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_container, fragment);
+            fragmentTransaction.replace(R.id.frameContainer, fragment);
             //  fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
+        } else {
+            binding.bottomNavigationView.setVisibility(View.GONE);
+            binding.bottomNavigation.setVisibility(View.VISIBLE);
+            binding.homeContainer.setVisibility(View.VISIBLE);
+            binding.frameContainer.setVisibility(View.GONE);
+
+
         }
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener(
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(
                 item -> {
                     switch (item.getItemId()) {
                         case R.id.check_folder:
@@ -155,14 +159,14 @@ public class Home_Activity extends AppCompatActivity {
                 });
 
 
-        binding.bottomNavigation.setOnNavigationItemSelectedListener(
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener(
                 item -> {
                     switch (item.getItemId()) {
                         case R.id.check_folder:
                             Folder_Fragment fragment = new Folder_Fragment();
                             FragmentManager fragmentManager = getSupportFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.frame_container, fragment);
+                            fragmentTransaction.replace(R.id.frameContainer, fragment);
                             //  fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                             return true;
@@ -170,7 +174,7 @@ public class Home_Activity extends AppCompatActivity {
                             Profile_Fragment fragment3 = new Profile_Fragment();
                             FragmentManager fragmentManager3 = getSupportFragmentManager();
                             FragmentTransaction fragmentTransaction3 = fragmentManager3.beginTransaction();
-                            fragmentTransaction3.replace(R.id.frame_container, fragment3);
+                            fragmentTransaction3.replace(R.id.frameContainer, fragment3);
                             //  fragmentTransaction.addToBackStack(null);
                             fragmentTransaction3.commit();
 //                                viewPager.setCurrentItem(1);
@@ -179,7 +183,7 @@ public class Home_Activity extends AppCompatActivity {
                             Setting_Fragment fragment4= new Setting_Fragment();
                             FragmentManager fragmentManager4 = getSupportFragmentManager();
                             FragmentTransaction fragmentTransaction4 = fragmentManager4.beginTransaction();
-                            fragmentTransaction4.replace(R.id.frame_container, fragment4);
+                            fragmentTransaction4.replace(R.id.frameContainer, fragment4);
                             //  fragmentTransaction.addToBackStack(null);
                             fragmentTransaction4.commit();
 //                                viewPager.setCurrentItem(1);
@@ -202,7 +206,7 @@ public class Home_Activity extends AppCompatActivity {
                 if (prevMenuItem != null) {
                     prevMenuItem.setChecked(false);
                 } else {
-                    binding.bottomNavigationView.getMenu().getItem(position).setChecked(false);
+                    binding.bottomNavigation.getMenu().getItem(position).setChecked(false);
                 }
                 Log.d("page", "onPageSelected: " + position);
                 // binding.bottomNavigationView.getMenu().getItem(position).setChecked(true);

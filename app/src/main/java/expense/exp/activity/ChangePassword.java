@@ -52,7 +52,12 @@ public class ChangePassword extends AppCompatActivity {
        // unbinder = ButterKnife.bind(this);
 
         sharedPrefManager=new SharedPrefManager(this);
-
+        binding.backIcon.setOnClickListener(v -> {
+            back(v);
+        });
+        binding.change.setOnClickListener(v -> {
+            change(v);
+        });
 
     }
 

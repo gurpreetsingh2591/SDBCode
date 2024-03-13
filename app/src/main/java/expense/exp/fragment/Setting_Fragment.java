@@ -82,7 +82,7 @@ public class Setting_Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //view = inflater.inflate(R.layout.layout_setting, container, false);
+       // view = inflater.inflate(R.layout.layout_setting, container, false);
         binding = LayoutSettingBinding.inflate(inflater, container, false);
 
         sharedPrefManager = new SharedPrefManager(getActivity());
@@ -105,6 +105,8 @@ public class Setting_Fragment extends Fragment {
             binding.cardviewAdsPackage.setVisibility(View.GONE);
             binding.cardviewAlerts.setVisibility(View.GONE);
         }
+
+        clickInit();
         return binding.getRoot();
     }
 
@@ -121,6 +123,35 @@ public class Setting_Fragment extends Fragment {
         //  unbinder.unbind();
     }
 
+
+     public void clickInit(){
+
+        binding.cardviewChangepassword.setOnClickListener(v -> {
+            changepassword(v);
+        } );
+        binding.cardviewLogout.setOnClickListener(v -> {
+            logout(v);
+        } );
+        binding.cardviewPlans.setOnClickListener(v -> {
+            plans(v);
+        } );
+        binding.cardviewChat.setOnClickListener(v -> {
+            chat(v);
+        } );
+        binding.backIcon.setOnClickListener(v -> {
+            back_press(v);
+        } );
+        binding.cardviewRefer.setOnClickListener(v -> {
+            referEarn(v);
+        } );
+        binding.cardviewAdsPackage.setOnClickListener(v -> {
+            adsPackage(v);
+        } );
+        binding.cardviewAlerts.setOnClickListener(v -> {
+            alerts(v);
+        } );
+
+     }
     // @OnClick(R.id.cardview_changepassword)
     public void changepassword(View view) {
 

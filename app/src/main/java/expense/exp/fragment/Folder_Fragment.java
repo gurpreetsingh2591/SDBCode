@@ -170,7 +170,7 @@ public class Folder_Fragment extends Fragment implements MyDialogListener {
         });
 
         binding.menu.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(requireContext(), menu);
+            PopupMenu popup = new PopupMenu(requireContext(), binding.menu);
             //Inflating the Popup using xml file
 
             popup.getMenuInflater().inflate(R.menu.menu, popup.getMenu());
