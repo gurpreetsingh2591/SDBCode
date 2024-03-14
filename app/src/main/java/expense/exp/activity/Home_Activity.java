@@ -118,6 +118,11 @@ public class Home_Activity extends AppCompatActivity {
         Log.d("usr_type", String.valueOf(sharedPrefManager.getuserinfo().getType().equals("user")));
 
         if (sharedPrefManager.getuserinfo().getType().equals("user")) {
+            binding.bottomNavigationView.setVisibility(View.GONE);
+            binding.bottomNavigation.setVisibility(View.VISIBLE);
+            binding.homeContainer.setVisibility(View.VISIBLE);
+            binding.frameContainer.setVisibility(View.GONE);
+        } else {
             binding.bottomNavigationView.setVisibility(View.VISIBLE);
             binding.bottomNavigation.setVisibility(View.GONE);
             binding.homeContainer.setVisibility(View.GONE);
@@ -128,13 +133,6 @@ public class Home_Activity extends AppCompatActivity {
             fragmentTransaction.replace(R.id.frameContainer, fragment);
             //  fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-        } else {
-            binding.bottomNavigationView.setVisibility(View.GONE);
-            binding.bottomNavigation.setVisibility(View.VISIBLE);
-            binding.homeContainer.setVisibility(View.VISIBLE);
-            binding.frameContainer.setVisibility(View.GONE);
-
-
         }
         binding.bottomNavigation.setOnNavigationItemSelectedListener(
                 item -> {

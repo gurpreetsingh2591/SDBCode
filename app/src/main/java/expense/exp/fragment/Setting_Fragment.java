@@ -1,5 +1,9 @@
 package expense.exp.fragment;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,10 +18,12 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.cardview.widget.CardView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import expense.exp.R;
@@ -27,6 +33,7 @@ import expense.exp.activity.Home_Activity;
 import expense.exp.activity.Login_activity;
 import expense.exp.activity.PlanListActivity;
 import expense.exp.activity.ReferActivity;
+import expense.exp.activity.SplashActivity;
 import expense.exp.chat.Chat;
 import expense.exp.databinding.LayoutFolderBinding;
 import expense.exp.databinding.LayoutSettingBinding;
@@ -36,7 +43,14 @@ import expense.exp.helper.SharedPrefManager;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;*/
+import expense.exp.internet.ApiClient;
+import expense.exp.internet.ApiInterface;
+import expense.exp.internet.model.GetAds;
 import expense.exp.internet.model.User;
+import expense.exp.model_class.Delete_Folfer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by admin on 06-07-2018.
@@ -150,8 +164,39 @@ public class Setting_Fragment extends Fragment {
         binding.cardviewAlerts.setOnClickListener(v -> {
             alerts(v);
         } );
+        binding.cardViewDeleteAccount.setOnClickListener(v -> {
+            showAlert(getContext(),"Delete Account", "Are you sure to delete your account permanently");
+
+        } );
 
      }
+
+    public  void showAlert(Context context, String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+
+        // Positive Button (Yes)
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            // Action to perform when "Yes" is clicked
+            Toast.makeText(context, "Yes clicked", Toast.LENGTH_SHORT).show();
+            getDeleteUser(Integer.parseInt(sharedPrefManager.getuserinfo().getId()));
+        });
+
+        // Negative Button (No)
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Action to perform when "No" is clicked
+                //Toast.makeText(context, "No clicked", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
     // @OnClick(R.id.cardview_changepassword)
     public void changepassword(View view) {
 
@@ -220,6 +265,63 @@ public class Setting_Fragment extends Fragment {
 
     }
 
+    @SuppressLint("CheckResult")
+    public void getDeleteUser(int user_id) {
+
+        startAnim();
+
+        ApiInterface apiService = ApiClient.getClient(getActivity())
+                .create(ApiInterface.class);
+
+
+        apiService.getDeleteUser(user_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+
+                .subscribeWith(new DisposableSingleObserver<Delete_Folfer>() {
+                    @Override
+                    public void onSuccess(Delete_Folfer deleteUser) {
+
+                            stopAnim();
+                        if (deleteUser.getStatus().matches("1")) {
+                            Log.e("exeption", "=" + deleteUser.getStatus());
+
+                            Intent i = new Intent(getActivity(), Login_activity.class);
+                            startActivity(i);
+
+
+                        } else {
+
+                            Toast.makeText(getContext(), "Something went wrong, Please try again", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        stopAnim();
+
+
+                    }
+                });
+
+
+    }
+
+    void startAnim() {
+        binding.avi.show();
+        // or avi.smoothToShow();
+    }
+
+    void stopAnim() {
+        if ( binding.avi != null) {
+            binding.avi.hide();
+        }
+
+        // or avi.smoothToHide();
+    }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);

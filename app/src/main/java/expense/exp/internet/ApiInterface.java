@@ -176,6 +176,8 @@ public interface ApiInterface {
 
     @GET("GetAdsList")
     Single<GetAds> getAdsList(@Query("user_id") int userid);
+    @GET("DeleteUser")
+    Single<Delete_Folfer> getDeleteUser(@Query("userid") int userid);
 
     @GET("GetAdDetails")
     Single<AdDetailsRes> getAdDetails(@Query("ad_id") String adid);
