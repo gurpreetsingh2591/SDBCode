@@ -118,6 +118,7 @@ public class Home_Activity extends AppCompatActivity {
         Log.d("usr_type", String.valueOf(sharedPrefManager.getuserinfo().getType().equals("user")));
 
         if (sharedPrefManager.getuserinfo().getType().equals("user")) {
+
             binding.bottomNavigationView.setVisibility(View.GONE);
             binding.bottomNavigation.setVisibility(View.VISIBLE);
             binding.homeContainer.setVisibility(View.VISIBLE);
