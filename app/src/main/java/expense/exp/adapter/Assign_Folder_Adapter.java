@@ -158,7 +158,7 @@ public class Assign_Folder_Adapter extends RecyclerView.Adapter<Assign_Folder_Ad
 
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
 
         //      Music_Model music_Model = Music_ModelsList.get(position);

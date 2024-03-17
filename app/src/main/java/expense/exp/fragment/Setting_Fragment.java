@@ -99,15 +99,15 @@ public class Setting_Fragment extends Fragment {
        // view = inflater.inflate(R.layout.layout_setting, container, false);
         binding = LayoutSettingBinding.inflate(inflater, container, false);
 
-        sharedPrefManager = new SharedPrefManager(getActivity());
+        sharedPrefManager = new SharedPrefManager(getContext());
 
         // unbinder = ButterKnife.bind(this, view);
 
         User user = sharedPrefManager.getuserinfo();
 
         url = "https://skipdaboxes.ca/Users/getAlerts/" + user.getId();
-//        cardview_points.setVisibility(View.VISIBLE);
-//        txtPoints.setText("My Points : "+user.getMypoints());
+        binding.cardviewPoints.setVisibility(View.VISIBLE);
+        binding.txtPoints.setText("My Points : "+user.getMypoints());
 
         if (sharedPrefManager.getuserinfo().getType().equals("user")) {
             binding.cardviewPoints.setVisibility(View.VISIBLE);

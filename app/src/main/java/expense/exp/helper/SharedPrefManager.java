@@ -26,9 +26,16 @@ public class SharedPrefManager {
 
 
     public SharedPrefManager(Context context) {
-        mCtx = context;
-        pref = mCtx.getSharedPreferences(SHARED_PREF_NAME, PRIVATE_MODE);
-        editor = pref.edit();
+        if (context != null) {
+            mCtx = context;
+            pref = mCtx.getSharedPreferences(SHARED_PREF_NAME, PRIVATE_MODE);
+            editor = pref.edit();
+        } else {
+            // Handle null context appropriately, throw an exception, or log an error
+        }
+        //mCtx = context;
+        //pref = mCtx.getSharedPreferences(SHARED_PREF_NAME, PRIVATE_MODE);
+        //editor = pref.edit();
     }
 
 
@@ -41,9 +48,9 @@ public class SharedPrefManager {
 
     public void setString(String year, String value) {
 
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(year, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
+        // SharedPreferences sharedPreferences = mCtx.getSharedPreferences(year, Context.MODE_PRIVATE);
+        // SharedPreferences.Editor editor = pref.edit();
+        editor = pref.edit();
         editor.putString(year, value);
         editor.commit();
         editor.apply();
@@ -51,36 +58,41 @@ public class SharedPrefManager {
     }
 
     public void setImageUrl(String value) {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        // SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        //  SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor = pref.edit();
         editor.putString("img_url", value);
         editor.commit();
         editor.apply();
     }
 
-    public void setUserReferalLink(String referalLink){
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+    public void setUserReferalLink(String referalLink) {
+        // SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        // SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor = pref.edit();
         editor.putString("referal_url", referalLink);
         editor.commit();
         editor.apply();
     }
 
     public String getReferalLink() {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getString("referal_url", "");
+        //SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+       // SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return pref.getString("referal_url", "");
     }
 
     public String getImageUrl() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getString("img_url", "");
+        return pref.getString("img_url", "");
     }
 
 
     public void serUser_info(User data_user) {
 
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+       // SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+       // SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor = pref.edit();
 
         Gson gson = new Gson();
         String json = gson.toJson(data_user);
@@ -93,8 +105,9 @@ public class SharedPrefManager {
 
     public void setStudent_info(StudentDataModal data_user) {
 
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+       // SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor = pref.edit();
 
         Gson gson = new Gson();
         String json = gson.toJson(data_user);
@@ -106,16 +119,16 @@ public class SharedPrefManager {
     }
 
     public String getString(String year, String value) {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(year, Context.MODE_PRIVATE);
-        String result = sharedPreferences.getString(year, value);
+       // SharedPreferences sharedPreferences = mCtx.getSharedPreferences(year, Context.MODE_PRIVATE);
+        String result = pref.getString(year, value);
         return result;
 
     }
 
     public void setacc_id(int i) {
 
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        editor = pref.edit();
 
         editor.putInt("acc_id", i);
         editor.commit();
@@ -126,16 +139,17 @@ public class SharedPrefManager {
 
     public void removeacc_id() {
 
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+       // SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        //SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor = pref.edit();
         editor.remove("acc_id");
         editor.commit();
     }
 
     public int getacc_id() {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        int i = sharedPreferences.getInt("acc_id", -1);
+        int i = pref.getInt("acc_id", -1);
 
         return i;
 
@@ -143,9 +157,9 @@ public class SharedPrefManager {
 
 
     public User getuserinfo() {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+       // SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString(User_info, "");
+        String json = pref.getString(User_info, "");
         User obj = gson.fromJson(json, User.class);
         if (obj != null) {
             return obj;
@@ -157,9 +171,9 @@ public class SharedPrefManager {
     }
 
     public StudentDataModal getStudentinfo() {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+       // SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString(std_info, "");
+        String json = pref.getString(std_info, "");
         StudentDataModal obj = gson.fromJson(json, StudentDataModal.class);
         if (obj != null) {
             return obj;
@@ -180,8 +194,9 @@ public class SharedPrefManager {
     }
 
     public boolean logout() {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+       // SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        //SharedPreferences.Editor editor = sharedPreferences.edit();
+         editor = pref.edit();
         editor.clear();
         editor.apply();
         return true;
