@@ -195,7 +195,7 @@ LayoutPostAdsBinding binding;
     }
 
     private void setListeners() {
-        edtPhone.addTextChangedListener(new TextWatcher() {
+        binding.editPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -522,7 +522,7 @@ LayoutPostAdsBinding binding;
 
                         if (categoryList != null && categoryList.size() != 0) {
                             adapter = new CategoriesAdapter(getActivity(), categoryList);
-                            spinnerCategory.setAdapter(adapter);
+                            binding.spinnerCategory.setAdapter(adapter);
                         }
                         stopAnim();
                     }
@@ -562,7 +562,7 @@ LayoutPostAdsBinding binding;
 
                         if (categoryList != null && categoryList.size() != 0) {
                             subCategoriesAdapter = new SubCategoriesAdapter(getActivity(), categoryList);
-                            spinnerSubCategory.setAdapter(subCategoriesAdapter);
+                            binding.spinnerSubCategory.setAdapter(subCategoriesAdapter);
                         }
                         stopAnim();
 
@@ -650,7 +650,7 @@ LayoutPostAdsBinding binding;
     }
 
     void stopAnim() {
-        if (binding.avi != null) {
+        if (binding.avi.getIndicator() != null) {
             binding.avi.hide();
             binding.avi.setVisibility(View.GONE);
         }

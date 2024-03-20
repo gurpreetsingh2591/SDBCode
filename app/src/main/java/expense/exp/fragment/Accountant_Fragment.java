@@ -1,5 +1,6 @@
 package expense.exp.fragment;
 
+
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -207,7 +208,7 @@ public class Accountant_Fragment extends Fragment {
                                         if (id == 1) {
 
                                             if (sharedPrefManager.getuserinfo().getMobile().equals("0") || sharedPrefManager.getuserinfo().getName().equals("")) {
-                                                Home_Activity.viewPager.setCurrentItem(3);
+                                              //  viewPager.setCurrentItem(3);
 
                                                 new CustomToast().Show_Toast(getActivity(), view, "Please Enter your Mobile number and username.");
                                             } else {
@@ -403,7 +404,7 @@ public class Accountant_Fragment extends Fragment {
                                     if (id == 1) {
 
                                         if (sharedPrefManager.getuserinfo().getMobile().equals("0")) {
-                                            Home_Activity.viewPager.setCurrentItem(3);
+                                            //viewPager.setCurrentItem(3);
                                             Profile_Fragment.newInstance();
                                             new CustomToast().Show_Toast(getActivity(), view,
                                                     "Please Enter your Mobile number and username.");
@@ -471,7 +472,7 @@ public class Accountant_Fragment extends Fragment {
     // @OnClick(R.id.back_icon)
     public void back_press(View view) {
 
-        Home_Activity.viewPager.setCurrentItem(0, true);
+       // viewPager.setCurrentItem(0, true);
     }
 
 

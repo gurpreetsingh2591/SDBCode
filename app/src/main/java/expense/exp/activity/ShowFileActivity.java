@@ -149,7 +149,7 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
     ImageView menu;
     private int acc_id = -1;
     public static File recievedFile;
-    private List<FolderFile> folderFiles;
+    private List<FolderFile> folderFiles=new ArrayList<>();
     String isFrom = "";
     ActivityShowFileBinding binding;
 
@@ -258,6 +258,28 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
             // TODO: 22-12-2018 call Recent Doc api
         }
 
+        binding.selectPdf.setOnClickListener(view -> {
+
+                selectPdf(view);
+
+        });
+        binding.selectGallery.setOnClickListener(view -> {
+
+            selectFile(view);
+
+        });
+        binding.selectCamera.setOnClickListener(view -> {
+
+            select_fromCamera(view);
+
+        });
+        binding.backIcon.setOnClickListener(view -> {
+
+            back(view);
+
+        });
+
+
         if (isPrivate) {
             getFiles(f_id);
         } else {
@@ -265,18 +287,15 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
             getRecentDocs();
         }
 
-        binding.iconMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.iconMore.setOnClickListener(view -> {
 
-                if (isFrom.equals("0")){
-                    openFolderDialog() ;
-                }
-                else{
-                    opendialog();
-                }
-
+            if (isFrom.equals("0")){
+                openFolderDialog() ;
             }
+            else{
+                opendialog();
+            }
+
         });
 
         binding.swipeRefresh.setColorSchemeColors(getResources().getColor(R.color.app_color));
@@ -338,8 +357,8 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
         }
     }
 
-        @RequiresApi(api = Build.VERSION_CODES.O)
-      //  @OnClick(R.id.select_pdf)
+
+
     public void selectPdf(View view) {
 
 //            String path = Environment.getExternalStorageDirectory() + "/" + "Downloads" + "/";
@@ -1475,7 +1494,7 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
 
     private void opendialog() {
 
-        PopupMenu popup = new PopupMenu(Objects.requireNonNull(this), icon_more);
+        PopupMenu popup = new PopupMenu(Objects.requireNonNull(this), binding.iconMore);
         //Inflating the Popup using xml file
         popup.getMenuInflater().inflate(R.menu.menu_dialog, popup.getMenu());
 
@@ -1490,18 +1509,19 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
 
                     case R.id.tv_delete:
 
-                        for (int i = 0; i < folderFiles.size(); i++) {
-                            if (folderFiles.get(i).isSelect()) {
-                                if (select_id.isEmpty()) {
-                                    select_id = folderFiles.get(i).getId();
-                                } else {
-                                    select_id = select_id + "," + folderFiles.get(i).getId();
-                                    Log.e("selected_id", select_id);
+                        if(folderFiles.size()!=0) {
+                            for (int i = 0; i < folderFiles.size(); i++) {
+                                if (folderFiles.get(i).isSelect()) {
+                                    if (select_id.isEmpty()) {
+                                        select_id = folderFiles.get(i).getId();
+                                    } else {
+                                        select_id = select_id + "," + folderFiles.get(i).getId();
+                                        Log.e("selected_id", select_id);
+                                    }
                                 }
+
                             }
-
                         }
-
                         if (select_id.isEmpty()) {
                             Toast.makeText(ShowFileActivity.this, "Please Select Document", Toast.LENGTH_SHORT).show();
                         } else {
@@ -1521,46 +1541,44 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void openFolderDialog() {
 
-        PopupMenu popup = new PopupMenu(Objects.requireNonNull(this), icon_more);
+        PopupMenu popup = new PopupMenu(Objects.requireNonNull(this), binding.iconMore);
         //Inflating the Popup using xml file
         popup.getMenuInflater().inflate(R.menu.menu__folder, popup.getMenu());
 
         //registering popup with OnMenuItemClickListener
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.tv_move:
-                        movedialog();
-                        break;
+        popup.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.tv_move:
+                    movedialog();
+                    break;
 
-                    case R.id.tv_delete:
+                case R.id.tv_delete:
 
-                        for (int i = 0; i < folderFiles.size(); i++) {
-                            if (folderFiles.get(i).isSelect()) {
-                                if (select_id.isEmpty()) {
-                                    select_id = folderFiles.get(i).getId();
-                                } else {
-                                    select_id = select_id + "," + folderFiles.get(i).getId();
-                                    Log.e("selected_id", select_id);
-                                }
+                    for (int i = 0; i < folderFiles.size(); i++) {
+                        if (folderFiles.get(i).isSelect()) {
+                            if (select_id.isEmpty()) {
+                                select_id = folderFiles.get(i).getId();
+                            } else {
+                                select_id = select_id + "," + folderFiles.get(i).getId();
+                                Log.e("selected_id", select_id);
                             }
-
                         }
 
-                        if (select_id.isEmpty()) {
-                            Toast.makeText(ShowFileActivity.this, "Please Select Document", Toast.LENGTH_SHORT).show();
-                        } else {
-                            DeleteFolder(select_id, sharedPrefManager.getuserinfo().getId());
+                    }
 
-                        }
-                        break;
+                    if (select_id.isEmpty()) {
+                        Toast.makeText(ShowFileActivity.this, "Please Select Document", Toast.LENGTH_SHORT).show();
+                    } else {
+                        DeleteFolder(select_id, sharedPrefManager.getuserinfo().getId());
 
-                }
-                return true;
+                    }
+                    break;
+
             }
+            return true;
         });
         popup.show(); //showing popup menu
 

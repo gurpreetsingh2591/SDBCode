@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 
 import expense.exp.R;
+import expense.exp.databinding.CustomToastBinding;
 
 
 public class CustomToast {
@@ -21,18 +22,17 @@ public class CustomToast {
 	public void Show_Toast(Context context, View view, String error) {
 
 		// Layout Inflater for inflating custom view
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		CustomToastBinding binding = CustomToastBinding.inflate(LayoutInflater.from(context));
+		//binding.setViewModel(new CustomToastViewModel(error));
 		// inflate the layout over view
-		View layout = inflater.inflate(R.layout.custom_toast,
-				(ViewGroup) view.findViewById(R.id.toast_root));
+		//View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) view.findViewById(R.id.toast_root));
 
 		// Get TextView id and set error
-		TextView text = layout.findViewById(R.id.toast_error);
+		//TextView text = layout.findViewById(R.id.toast_error);
 
 
-		text.setText(error);
+		binding.toastError.setText(error);
 
 		Toast toast = new Toast(context);// Get Toast Context
 		toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);// Set
@@ -43,7 +43,7 @@ public class CustomToast {
 																		// Horizoontal
 
 		toast.setDuration(Toast.LENGTH_SHORT);// Set Duration
-		toast.setView(layout); // Set Custom View over toast
+		toast.setView(binding.getRoot());// Set Custom View over toast
 
 		toast.show();// Finally show toast
 	}

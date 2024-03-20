@@ -242,7 +242,7 @@ public class Setting_Fragment extends Fragment {
     // @OnClick(R.id.back_icon)
     public void back_press(View view) {
 
-        Home_Activity.viewPager.setCurrentItem(2, true);
+      //  Home_Activity.viewPager.setCurrentItem(2, true);
     }
 
     //  @OnClick(R.id.cardview_refer)

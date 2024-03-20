@@ -79,37 +79,34 @@ public class Accountant_Adapter extends RecyclerView.Adapter<Accountant_Adapter.
         }
 
 
-        holder.toggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.toggleButton.setOnClickListener(view -> {
 
 
-                if (sharedPrefManager.getacc_id() == -1)
+            if (sharedPrefManager.getacc_id() == -1)
+            {
+
+                holder.toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.remove_acc_icon));
+
+                clickListener.onPositionClicked(data, 1, position);
+
+            }else
+            {
+                if (sharedPrefManager.getacc_id()==Integer.parseInt(data.getId()))
                 {
 
-                    holder.toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.remove_acc_icon));
+                    holder.toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.add_acc_icon));
 
-                    clickListener.onPositionClicked(data, 1, position);
+
+                    clickListener.onPositionClicked(data, 2, position);
 
                 }else
                 {
-                    if (sharedPrefManager.getacc_id()==Integer.parseInt(data.getId()))
-                    {
 
-                        holder.toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.add_acc_icon));
-
-
-                        clickListener.onPositionClicked(data, 2, position);
-
-                    }else
-                    {
-
-                        Toast.makeText(context, "Already selected", Toast.LENGTH_SHORT).show();
-                    }
-
+                    Toast.makeText(context, "Already selected", Toast.LENGTH_SHORT).show();
                 }
 
             }
+
         });
 
 

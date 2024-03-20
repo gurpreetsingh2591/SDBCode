@@ -59,7 +59,7 @@ public class Home_Activity extends AppCompatActivity {
     public BottomNavigationView bottomNavigationView;
 
 
-    public static ViewPager viewPager;
+  //  public static ViewPager viewPager;
 
     MenuItem prevMenuItem;
     ViewPagerAdapter adapter;

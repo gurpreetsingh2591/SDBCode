@@ -136,7 +136,7 @@ public class UploadFileActivity extends AppCompatActivity {
         sharedPrefManager = new SharedPrefManager(this);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
-        recyclerView.setLayoutManager(layoutManager);
+        binding.selectFileRecyclerview.setLayoutManager(layoutManager);
 
 
         int colorPrimary = ContextCompat.getColor(this, R.color.colorPrimary);
@@ -149,54 +149,55 @@ public class UploadFileActivity extends AppCompatActivity {
                 binding.signatureView.clearCanvas();//Clear SignatureView
             }
         });
+        binding.backIcon.setOnClickListener(v -> back(v));
+        binding.uploadDoc.setOnClickListener(v -> upload_doc(v));
+        binding.selectFile.setOnClickListener(v -> setSelect_file(v));
 
-        binding.btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                File file = new File(directory, System.currentTimeMillis() + ".png");
 
-                FileOutputStream out = null;
-                Bitmap bitmap = binding.signatureView.getSignatureBitmap();
+        binding.btnAdd.setOnClickListener(v -> {
+            File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            File file = new File(directory, System.currentTimeMillis() + ".png");
+
+            FileOutputStream out = null;
+            Bitmap bitmap = binding.signatureView.getSignatureBitmap();
+            try {
+                out = new FileOutputStream(file);
+                if (bitmap != null) {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                } else {
+                    throw new FileNotFoundException();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
                 try {
-                    out = new FileOutputStream(file);
-                    if (bitmap != null) {
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                    } else {
-                        throw new FileNotFoundException();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (out != null) {
-                            out.flush();
-                            out.close();
+                    if (out != null) {
+                        out.flush();
+                        out.close();
 
-                            if (bitmap != null) {
-                                Uri yourUri = Uri.fromFile(file);
+                        if (bitmap != null) {
+                            Uri yourUri = Uri.fromFile(file);
 
 //                                signature_path = getRealPathFromURI(yourUri);
-                                image_file = new File(yourUri.toString());
-                                binding.signatureImage.setImageURI(yourUri);
+                            image_file = new File(yourUri.toString());
+                            binding.signatureImage.setImageURI(yourUri);
 
-                                Toast.makeText(getApplicationContext(), "Image saved successfully at " + file.getPath(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Image saved successfully at " + file.getPath(), Toast.LENGTH_LONG).show();
 
-                                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-                                    new  MyMediaScanner(UploadFileActivity.this, file);
-                                } else {
-                                    ArrayList<String> toBeScanned = new ArrayList<String>();
-                                    toBeScanned.add(file.getAbsolutePath());
-                                    String[] toBeScannedStr = new String[toBeScanned.size()];
-                                    toBeScannedStr = toBeScanned.toArray(toBeScannedStr);
-                                    MediaScannerConnection.scanFile(UploadFileActivity.this, toBeScannedStr, null,
-                                            null);
-                                }
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                                new  MyMediaScanner(UploadFileActivity.this, file);
+                            } else {
+                                ArrayList<String> toBeScanned = new ArrayList<String>();
+                                toBeScanned.add(file.getAbsolutePath());
+                                String[] toBeScannedStr = new String[toBeScanned.size()];
+                                toBeScannedStr = toBeScanned.toArray(toBeScannedStr);
+                                MediaScannerConnection.scanFile(UploadFileActivity.this, toBeScannedStr, null,
+                                        null);
                             }
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -213,25 +214,26 @@ public class UploadFileActivity extends AppCompatActivity {
             else
                 Toast.makeText(this, "Something wrong", Toast.LENGTH_SHORT).show();
             if (image_path.size() > 1) {
-                check_singleDoc.setChecked(true);
-                check_singleDoc.setVisibility(View.VISIBLE);
-                btn_container.setVisibility(View.VISIBLE);
+                binding.checkSingleDoc.setChecked(true);
+                binding.checkSingleDoc.setVisibility(View.VISIBLE);
+                binding.btnContainer.setVisibility(View.VISIBLE);
                 adapter = new RecyclerViewAdapter(getApplicationContext(), image_path);
-                recyclerView.setAdapter(adapter);
+                binding.selectFileRecyclerview.setAdapter(adapter);
             } else {
-                check_singleDoc.setVisibility(View.GONE);
-                btn_container.setVisibility(View.VISIBLE);
-                edit_cost.setVisibility(View.VISIBLE);
-                edit_filename.setVisibility(View.VISIBLE);
+
+                binding.checkSingleDoc.setVisibility(View.GONE);
+                binding.btnContainer.setVisibility(View.VISIBLE);
+                binding.editCost.setVisibility(View.VISIBLE);
+                binding.editFileName.setVisibility(View.VISIBLE);
             }
-            btn_container.setVisibility(View.VISIBLE);
-            edit_cost.setVisibility(View.VISIBLE);
-            edit_filename.setVisibility(View.VISIBLE);
+            binding.btnContainer.setVisibility(View.VISIBLE);
+            binding.editCost.setVisibility(View.VISIBLE);
+            binding.editFileName.setVisibility(View.VISIBLE);
             adapter = new RecyclerViewAdapter(getApplicationContext(), image_path);
-            recyclerView.setAdapter(adapter);
+            binding.selectFileRecyclerview.setAdapter(adapter);
 
         } else {
-            btn_container.setVisibility(View.VISIBLE);
+            binding.btnContainer.setVisibility(View.VISIBLE);
             Intent pickPhoto = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             pickPhoto.addCategory(Intent.CATEGORY_OPENABLE);
             pickPhoto.setType("image/*");
@@ -239,25 +241,25 @@ public class UploadFileActivity extends AppCompatActivity {
             startActivityForResult(pickPhoto, INTENT_REQUEST_GET_IMAGES);
 
             adapter = new RecyclerViewAdapter(getApplicationContext(), image_path);
-            recyclerView.setAdapter(adapter);
+            binding.selectFileRecyclerview.setAdapter(adapter);
 
         }
 
-        check_singleDoc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.checkSingleDoc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
-                    edit_cost.setVisibility(View.GONE);
-                    edit_filename.setVisibility(View.GONE);
+                    binding.editCost.setVisibility(View.GONE);
+                    binding.editFileName.setVisibility(View.GONE);
                 } else {
-                    edit_cost.setVisibility(View.VISIBLE);
-                    edit_filename.setVisibility(View.VISIBLE);
+                    binding.editCost.setVisibility(View.VISIBLE);
+                    binding.editFileName.setVisibility(View.VISIBLE);
                 }
             }
         });
 
 
-        addSignature.setOnClickListener(new View.OnClickListener() {
+        binding.addSignature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                Intent intent = new Intent(UploadFileActivity.this,SignatureActivity.class);
@@ -265,7 +267,7 @@ public class UploadFileActivity extends AppCompatActivity {
             }
         });
 
-        uploadSignature.setOnClickListener(new View.OnClickListener() {
+        binding.uploadSignature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -332,21 +334,21 @@ public class UploadFileActivity extends AppCompatActivity {
                 image_path = new ArrayList<>(getSelectedImage(data));
 
                 if (image_path.size() > 1) {
-                    check_singleDoc.setChecked(true);
-                    check_singleDoc.setVisibility(View.VISIBLE);
-                    btn_container.setVisibility(View.VISIBLE);
+                    binding.checkSingleDoc.setChecked(true);
+                    binding.checkSingleDoc.setVisibility(View.VISIBLE);
+                    binding.btnContainer.setVisibility(View.VISIBLE);
                     adapter = new RecyclerViewAdapter(getApplicationContext(), image_path);
-                    recyclerView.setAdapter(adapter);
+                    binding.selectFileRecyclerview.setAdapter(adapter);
                 } else {
-                    check_singleDoc.setChecked(false);
-                    check_singleDoc.setVisibility(View.GONE);
+                    binding.checkSingleDoc.setChecked(false);
+                    binding.checkSingleDoc.setVisibility(View.GONE);
                 }
             }
-            btn_container.setVisibility(View.VISIBLE);
-            edit_cost.setVisibility(View.VISIBLE);
-            edit_filename.setVisibility(View.VISIBLE);
+            binding.btnContainer.setVisibility(View.VISIBLE);
+            binding.editCost.setVisibility(View.VISIBLE);
+            binding.editFileName.setVisibility(View.VISIBLE);
             adapter = new RecyclerViewAdapter(getApplicationContext(), image_path);
-            recyclerView.setAdapter(adapter);
+            binding.selectFileRecyclerview.setAdapter(adapter);
         }
 
         else  if (requestCode == INTENT_REQUEST_GET_SIGNATURE && resuleCode == AppCompatActivity.RESULT_OK) {
@@ -371,7 +373,7 @@ public class UploadFileActivity extends AppCompatActivity {
                 signature_path = getRealPathFromURI(imageUri);
                 image_file = new File(signature_path);
 
-                signatureImage.setImageURI(imageUri);
+                binding.signatureImage.setImageURI(imageUri);
 
             }
         }
@@ -430,6 +432,7 @@ public class UploadFileActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (mCropImageUri != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // required permissions granted, start crop image activity
             startCropImageActivity(mCropImageUri);
@@ -562,20 +565,20 @@ public class UploadFileActivity extends AppCompatActivity {
 
     void startAnim() {
         loading_view.setVisibility(View.VISIBLE);
-        avi.setVisibility(View.VISIBLE);
-        avi.show();
+        binding.avi.setVisibility(View.VISIBLE);
+        binding.avi.show();
         // or avi.smoothToShow();
     }
 
     void stopAnim() {
 
-        if (avi != null) {
+        if (binding.avi.getIndicator() != null) {
 
-            if (avi.isShown()) {
+            if (binding.avi.isShown()) {
 
-                avi.hide();
-                avi.setVisibility(View.GONE);
-                loading_view.setVisibility(View.GONE);
+                binding.avi.hide();
+                binding.avi.setVisibility(View.GONE);
+                binding.loadingView.setVisibility(View.GONE);
             }
 
         }
@@ -587,8 +590,8 @@ public class UploadFileActivity extends AppCompatActivity {
    // @OnClick(R.id.upload_doc)
     public void upload_doc(View view) {
 
-        String getcost = edit_cost.getText().toString().trim();
-        String getDocName = edit_filename.getText().toString().trim();
+        String getcost = binding.editCost.getText().toString().trim();
+        String getDocName = binding.editFileName.getText().toString().trim();
 
 //        signature_path = getRealPathFromURI(imageUri);
 //        image_file = new File(signature_path);
@@ -625,7 +628,7 @@ public class UploadFileActivity extends AppCompatActivity {
                         upload_file(Integer.parseInt(sharedPrefManager.getuserinfo().getId()), f_id, 0, getcost, getDocName, Pref.getStringValue(this, Utils.selected_year, Utils.this_year), "image", file, image_file);
                     }
                 } else {
-                    int same = check_singleDoc.isChecked() ? 1 : 0;
+                    int same = binding.checkSingleDoc.isChecked() ? 1 : 0;
                     Log.e("upload_doc: ", "Checked: " + same);
 //                for (int i = 0; i < image_path.size(); i++) {
                     File file = new File(String.valueOf(UploadFileActivity.image_path.get(0)));
@@ -694,7 +697,7 @@ public class UploadFileActivity extends AppCompatActivity {
 //                            counter++;
 //                            if (counter == image_path.size()) {
                             stopAnim();
-                            btn_container.setVisibility(View.GONE);
+                            binding.btnContainer.setVisibility(View.GONE);
                             Toast.makeText(getApplication(), status.getMessage(), Toast.LENGTH_LONG).show();
                             call_Back();
 //                            }
@@ -719,13 +722,13 @@ public class UploadFileActivity extends AppCompatActivity {
 
 
     private void call_Back() {
-        if (edit_cost != null) {
-            edit_cost.setText("");
+        if (binding.editCost.getText() != null) {
+            binding.editCost.setText("");
         }
-        if (edit_filename != null)
-            edit_filename.setText("");
-        if (check_singleDoc != null)
-            check_singleDoc.setChecked(true);
+        if (binding.editFileName.getText() != null) {
+            binding.editFileName.setText("");
+        }
+        binding.checkSingleDoc.setChecked(true);
         if (adapter != null) {
             adapter.clear();
         }
@@ -743,6 +746,7 @@ public class UploadFileActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         call_Back();
     }
 
