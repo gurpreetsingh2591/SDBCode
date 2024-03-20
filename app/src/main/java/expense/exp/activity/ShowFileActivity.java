@@ -156,9 +156,9 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_file);
-        /*binding = ActivityShowFileBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());*/
+        //setContentView(R.layout.activity_show_file);
+        binding = ActivityShowFileBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
        // unbinder = ButterKnife.bind(this);
         sharedPrefManager = new SharedPrefManager(this);
         acc_id = sharedPrefManager.getacc_id();
@@ -168,10 +168,10 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
         Log.d("search", sharedPrefManager.getuserinfo().getId());
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        folder_recycleview.setLayoutManager(layoutManager);
+        binding.folderRecycleview.setLayoutManager(layoutManager);
         f_id = getIntent().getStringExtra("f_id");
 
-        icon_more = findViewById(R.id.icon_more);
+       // icon_more = findViewById(R.id.icon_more);
         Log.e("folder_id", String.valueOf(f_id));
 
 //        onMenuClick();
@@ -245,16 +245,16 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
     void initview() {
         if (getIntent().hasExtra("f_id")) {
             isPrivate = true;
-            select_camera.setVisibility(View.VISIBLE);
-            select_gallery.setVisibility(View.VISIBLE);
-            select_pdf.setVisibility(View.VISIBLE);
+            binding.selectCamera.setVisibility(View.VISIBLE);
+            binding.selectGallery.setVisibility(View.VISIBLE);
+            binding.selectPdf.setVisibility(View.VISIBLE);
 //            f_id = Integer.parseInt(getIntent().getStringExtra("f_id"));
             f_id = getIntent().getStringExtra("f_id");
         } else {
             isPrivate = false;
-            select_camera.setVisibility(View.GONE);
-            select_gallery.setVisibility(View.GONE);
-            select_pdf.setVisibility(View.GONE);
+            binding.selectCamera.setVisibility(View.GONE);
+            binding.selectGallery.setVisibility(View.GONE);
+            binding.selectPdf.setVisibility(View.GONE);
             // TODO: 22-12-2018 call Recent Doc api
         }
 
@@ -265,7 +265,7 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
             getRecentDocs();
         }
 
-        icon_more.setOnClickListener(new View.OnClickListener() {
+        binding.iconMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -279,9 +279,9 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
             }
         });
 
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.app_color));
+        binding.swipeRefresh.setColorSchemeColors(getResources().getColor(R.color.app_color));
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 if (isPrivate) {
@@ -293,7 +293,7 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
             }
         });
 
-        serach_txt.addTextChangedListener(new TextWatcher() {
+        binding.serachTxt.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -386,11 +386,11 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
                     @Override
                     public void onSuccess(GetFiles getFiles) {
                         stopAnim();
-                        if (empty_txt != null) {
-                            if (empty_txt.getVisibility() == View.VISIBLE) {
-                                empty_txt.setVisibility(View.GONE);
-                                folder_recycleview.setVisibility(View.VISIBLE);
-                                icon_more.setVisibility(View.VISIBLE);
+                        if (binding.emptyTxt.getText() != null) {
+                            if (binding.emptyTxt.getVisibility() == View.VISIBLE) {
+                                binding.emptyTxt.setVisibility(View.GONE);
+                                binding.folderRecycleview.setVisibility(View.VISIBLE);
+                                binding.iconMore.setVisibility(View.VISIBLE);
                             }
                         }
                         if (getFiles.getStatus().matches("1")) {
@@ -483,18 +483,18 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
                                         callRenameDialog(position);
                                     }
                                 });
-                                folder_recycleview.setAdapter(folder_adapter);
+                                binding.folderRecycleview.setAdapter(folder_adapter);
                             }
 
 
                         } else {
-                            empty_txt.setText(R.string.no_recent_file);
-                            empty_txt.setClickable(false);
-                            empty_txt.setVisibility(View.VISIBLE);
-                            icon_more.setVisibility(View.GONE);
+                            binding.emptyTxt.setText(R.string.no_recent_file);
+                            binding.emptyTxt.setClickable(false);
+                            binding.emptyTxt.setVisibility(View.VISIBLE);
+                            binding.iconMore.setVisibility(View.GONE);
                         }
 
-                        swipeRefreshLayout.setRefreshing(false);
+                        binding.swipeRefresh.setRefreshing(false);
 
                     }
 
@@ -502,11 +502,11 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
                     public void onError(Throwable e) {
                         stopAnim();
                         Log.e("onError: ", e.toString());
-                        if (empty_txt != null) {
-                            empty_txt.setText(R.string.no_recent_file);
-                            empty_txt.setClickable(false);
-                            empty_txt.setVisibility(View.VISIBLE);
-                            swipeRefreshLayout.setRefreshing(false);
+                        if (binding.emptyTxt.getText() != null) {
+                            binding.emptyTxt.setText(R.string.no_recent_file);
+                            binding.emptyTxt.setClickable(false);
+                            binding.emptyTxt.setVisibility(View.VISIBLE);
+                            binding.swipeRefresh.setRefreshing(false);
                         }
                     }
                 });
@@ -570,11 +570,11 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
                     @Override
                     public void onSuccess(GetFiles getFiles) {
                         stopAnim();
-                        if (empty_txt != null) {
-                            if (empty_txt.getVisibility() == View.VISIBLE) {
-                                empty_txt.setVisibility(View.GONE);
-                                folder_recycleview.setVisibility(View.VISIBLE);
-                                icon_more.setVisibility(View.VISIBLE);
+                        if (binding.emptyTxt.getText() != null) {
+                            if (binding.emptyTxt.getVisibility() == View.VISIBLE) {
+                                binding.emptyTxt.setVisibility(View.GONE);
+                                binding.folderRecycleview.setVisibility(View.VISIBLE);
+                                binding.iconMore.setVisibility(View.VISIBLE);
                             }
                         }
                         if (getFiles.getStatus().matches("1")) {
@@ -712,19 +712,19 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
                                     }
                                 });
 
-                                folder_recycleview.setAdapter(folder_adapter);
+                                binding.folderRecycleview.setAdapter(folder_adapter);
                             }
 
 
                         } else {
-                            if (null != empty_txt) {
-                                empty_txt.setText(R.string.add_file);
-                                empty_txt.setClickable(true);
-                                empty_txt.setVisibility(View.VISIBLE);
+                            if (null != binding.emptyTxt.getText()) {
+                                binding.emptyTxt.setText(R.string.add_file);
+                                binding.emptyTxt.setClickable(true);
+                                binding.emptyTxt.setVisibility(View.VISIBLE);
                             }
                         }
 
-                        swipeRefreshLayout.setRefreshing(false);
+                        binding.swipeRefresh.setRefreshing(false);
 
                     }
 
@@ -798,15 +798,15 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
 
 
     void startAnim() {
-        avi.show();
+        binding.avi.show();
         // or avi.smoothToShow();
     }
 
     void stopAnim() {
 
-        if (avi != null) {
+        if (binding.avi != null) {
 
-            avi.hide();
+            binding.avi.hide();
         }
 
         // or avi.smoothToHide();
@@ -821,6 +821,7 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
     public void onBackPressed() {
 //        startActivity(new Intent(this, Home_Activity.class));
 //        finishAffinity();
+        super.onBackPressed();
         ActivityManager mngr = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 
         List<ActivityManager.RunningTaskInfo> taskList = mngr.getRunningTasks(10);
@@ -844,10 +845,10 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
 
     @SuppressLint("CheckResult")
     public void searchfolder(String search_value) {
-        if (empty_txt.getVisibility() == View.VISIBLE) {
-            empty_txt.setVisibility(View.GONE);
-            folder_recycleview.setVisibility(View.VISIBLE);
-            icon_more.setVisibility(View.VISIBLE);
+        if (binding.emptyTxt.getVisibility() == View.VISIBLE) {
+            binding.emptyTxt.setVisibility(View.GONE);
+            binding.folderRecycleview.setVisibility(View.VISIBLE);
+            binding.iconMore.setVisibility(View.VISIBLE);
         }
 
         startAnim();
@@ -1008,14 +1009,14 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
                             });
 
 
-                            folder_recycleview.setAdapter(folder_adapter);
+                            binding.folderRecycleview.setAdapter(folder_adapter);
 
 
                         } else {
                             stopAnim();
-                            folder_recycleview.setVisibility(View.GONE);
-                            empty_txt.setText("Not Found");
-                            empty_txt.setVisibility(View.VISIBLE);
+                            binding.folderRecycleview.setVisibility(View.GONE);
+                            binding.emptyTxt.setText("Not Found");
+                            binding.emptyTxt.setVisibility(View.VISIBLE);
 
                         }
 
@@ -1024,7 +1025,7 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
 
                     @Override
                     public void onError(Throwable e) {
-                        empty_txt.setVisibility(View.VISIBLE);
+                        binding.emptyTxt.setVisibility(View.VISIBLE);
                         stopAnim();
                     }
 
