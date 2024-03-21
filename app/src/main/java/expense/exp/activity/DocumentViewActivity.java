@@ -207,27 +207,24 @@ public class DocumentViewActivity extends AppCompatActivity implements Folder_Ad
                 .inflate(R.menu.dialog, popup.getMenu());
 
         //registering popup with OnMenuItemClickListener
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.tv_print:
-                        print();
-                        break;
-                    case R.id.tv_share:
-                        shareIntent();
-                        break;
-                    case R.id.tv_move:
-                        movedialog();
-                        break;
+        popup.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.tv_print:
+                    print();
+                    break;
+                case R.id.tv_share:
+                    shareIntent();
+                    break;
+                case R.id.tv_move:
+                    movedialog();
+                    break;
 
-                    case R.id.tv_delete:
-                        DeleteFolder(file_id, sharedPrefManager.getuserinfo().getId());
-                        break;
+                case R.id.tv_delete:
+                    DeleteFolder(file_id, sharedPrefManager.getuserinfo().getId());
+                    break;
 
-                }
-                return true;
             }
+            return true;
         });
         popup.show(); //showing popup menu
 
@@ -302,12 +299,7 @@ public class DocumentViewActivity extends AppCompatActivity implements Folder_Ad
         getFolder(Integer.parseInt(sharedPrefManager.getuserinfo().getId()));
 
         ImageView cancel_icon = dialog.findViewById(R.id.cancel_icon);
-        cancel_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        cancel_icon.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
 
     }

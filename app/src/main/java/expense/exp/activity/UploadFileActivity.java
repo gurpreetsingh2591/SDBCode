@@ -245,36 +245,27 @@ public class UploadFileActivity extends AppCompatActivity {
 
         }
 
-        binding.checkSingleDoc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isChecked) {
-                    binding.editCost.setVisibility(View.GONE);
-                    binding.editFileName.setVisibility(View.GONE);
-                } else {
-                    binding.editCost.setVisibility(View.VISIBLE);
-                    binding.editFileName.setVisibility(View.VISIBLE);
-                }
+        binding.checkSingleDoc.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isChecked) {
+                binding.editCost.setVisibility(View.GONE);
+                binding.editFileName.setVisibility(View.GONE);
+            } else {
+                binding.editCost.setVisibility(View.VISIBLE);
+                binding.editFileName.setVisibility(View.VISIBLE);
             }
         });
 
 
-        binding.addSignature.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               Intent intent = new Intent(UploadFileActivity.this,SignatureActivity.class);
-                startActivityForResult(intent, INTENT_REQUEST_GET_SIGNATURE);
-            }
+        binding.addSignature.setOnClickListener(v -> {
+           Intent intent = new Intent(UploadFileActivity.this,SignatureActivity.class);
+            startActivityForResult(intent, INTENT_REQUEST_GET_SIGNATURE);
         });
 
-        binding.uploadSignature.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.uploadSignature.setOnClickListener(v -> {
 
-                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(gallery, INTENT_REQUEST_GET_SIGNATURE_IMAGE);
+            Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            startActivityForResult(gallery, INTENT_REQUEST_GET_SIGNATURE_IMAGE);
 
-            }
         });
     }
 
@@ -360,7 +351,7 @@ public class UploadFileActivity extends AppCompatActivity {
 
                 imageUri = Uri.parse(image);
                 image_file = new File(imageUri.getPath());
-                Glide.with(UploadFileActivity.this).load(image.toString()).into(signatureImage);
+                Glide.with(UploadFileActivity.this).load(image.toString()).into(binding.signatureImage);
             }
         }
         else  if (requestCode == INTENT_REQUEST_GET_SIGNATURE_IMAGE && resuleCode == AppCompatActivity.RESULT_OK) {
@@ -564,7 +555,7 @@ public class UploadFileActivity extends AppCompatActivity {
     }
 
     void startAnim() {
-        loading_view.setVisibility(View.VISIBLE);
+        binding.loadingView.setVisibility(View.VISIBLE);
         binding.avi.setVisibility(View.VISIBLE);
         binding.avi.show();
         // or avi.smoothToShow();

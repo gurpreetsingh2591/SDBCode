@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentManager;
 
 import expense.exp.R;
 import expense.exp.databinding.ActivityCropBinding;
+import expense.exp.databinding.ActivityDocumentViewBinding;
+import expense.exp.databinding.ActivityPostAdsBinding;
 import expense.exp.fragment.PostAds_Fragment;
 import expense.exp.helper.Utils;
 
@@ -16,15 +18,15 @@ import expense.exp.helper.Utils;
 public class PostAds_activity extends AppCompatActivity {
 
     private static FragmentManager fragmentManager;
-
+    ActivityPostAdsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_ads);
+        //setContentView(R.layout.activity_post_ads);
 
-        //binding = ActivityCropBinding.inflate(getLayoutInflater());
-       // setContentView(binding.getRoot());
+        binding = ActivityPostAdsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         fragmentManager = getSupportFragmentManager();
 
         // If savedinstnacestate is null then replace login fragment

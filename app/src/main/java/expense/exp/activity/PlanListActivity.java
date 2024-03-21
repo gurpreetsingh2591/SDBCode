@@ -16,6 +16,7 @@ import java.util.List;
 import expense.exp.R;
 import expense.exp.adapter.PlanListAdapter;
 import expense.exp.databinding.ActivityCropBinding;
+import expense.exp.databinding.ActivityPlanListBinding;
 import expense.exp.helper.SharedPrefManager;
 import expense.exp.internet.ApiClient;
 import expense.exp.internet.ApiInterface;
@@ -28,25 +29,23 @@ import io.reactivex.schedulers.Schedulers;
 public class PlanListActivity extends AppCompatActivity {
 
 //    private AVLoadingIndicatorView avi;
-    private RecyclerView plansRecycler;
-    private ImageView back_icon;
+
     private List<PlanList>planLists;
     SharedPrefManager sharedPrefManager;
+    ActivityPlanListBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plan_list);
-      //  binding = ActivityCropBinding.inflate(getLayoutInflater());
-      //  setContentView(binding.getRoot());
-        plansRecycler = findViewById(R.id.plansRecycler);
-        back_icon = findViewById(R.id.back_icon);
-//        avi = findViewById(R.id.avi);
+       // setContentView(R.layout.activity_plan_list);
+        binding = ActivityPlanListBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         sharedPrefManager = new SharedPrefManager(this);
 
         getFolder(sharedPrefManager.getuserinfo().getType(),sharedPrefManager.getuserinfo().getId());
 
         Log.e("UserType###########",sharedPrefManager.getuserinfo().getType());
-        back_icon.setOnClickListener(new View.OnClickListener() {
+        binding.backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -77,7 +76,7 @@ public class PlanListActivity extends AppCompatActivity {
 
                             final LinearLayoutManager layoutManager = new LinearLayoutManager(PlanListActivity.this);
                             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                            plansRecycler.setLayoutManager(layoutManager);
+                            binding.plansRecycler.setLayoutManager(layoutManager);
 //                            PlanListAdapter adapter = new PlanListAdapter(planLists,PlanListActivity.this,this);
                             PlanListAdapter accountant_fragm = new PlanListAdapter(planLists, PlanListActivity.this, planListResponse.getMyplan(),new PlanListAdapter.ClickListener() {
                                 @Override
@@ -97,7 +96,7 @@ public class PlanListActivity extends AppCompatActivity {
                                 }
 
                             });
-                            plansRecycler.setAdapter(accountant_fragm);
+                            binding.plansRecycler.setAdapter(accountant_fragm);
 
                             }
 

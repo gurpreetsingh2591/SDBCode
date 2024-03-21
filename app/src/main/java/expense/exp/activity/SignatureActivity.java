@@ -55,7 +55,7 @@ public class SignatureActivity extends AppCompatActivity {
         binding.btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signatureView.clearCanvas();//Clear SignatureView
+                binding.signatureView.clearCanvas();//Clear SignatureView
             }
         });
 
@@ -70,7 +70,7 @@ public class SignatureActivity extends AppCompatActivity {
                 }
 
                 FileOutputStream out = null;
-                Bitmap bitmap = signatureView.getSignatureBitmap();
+                Bitmap bitmap = binding.signatureView.getSignatureBitmap();
                 try {
                     out = new FileOutputStream(file);
                     if (bitmap != null) {
