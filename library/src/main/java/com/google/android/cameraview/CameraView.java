@@ -240,7 +240,7 @@ public class CameraView extends FrameLayout {
 
     /**
      * Open a camera device and start showing camera preview. This is typically called from
-     * {@link AppCompatActivity#onResume()}.
+     * .
      */
     public void start() {
         if (!mImpl.start()) {
@@ -255,7 +255,7 @@ public class CameraView extends FrameLayout {
 
     /**
      * Stop camera preview and close the device. This is typically called from
-     * {@link AppCompatActivity#onPause()}.
+     * .
      */
     public void stop() {
         mImpl.stop();

@@ -1,5 +1,6 @@
 package gun0912.tedbottompicker.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -69,7 +70,7 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
 
                 int count = 0;
                 while (imageCursor.moveToNext() && count < builder.previewMaxCount) {
-                    String imageLocation = imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA));
+                    @SuppressLint("Range") String imageLocation = imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA));
                     File imageFile = new File(imageLocation);
                     pickerTiles.add(new PickerTile(Uri.fromFile(imageFile)));
                     count++;

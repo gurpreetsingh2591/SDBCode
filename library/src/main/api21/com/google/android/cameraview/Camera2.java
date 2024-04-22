@@ -31,6 +31,9 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
+import android.os.Build;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Surface;
@@ -40,6 +43,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.SortedSet;
 
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 @SuppressWarnings("MissingPermission")
 @TargetApi(21)
 class Camera2 extends CameraViewImpl {

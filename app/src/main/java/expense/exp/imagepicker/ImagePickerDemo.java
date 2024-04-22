@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -72,6 +73,8 @@ import java.util.Locale;
 import expense.exp.ImageGridActivity;
 import expense.exp.R;
 import expense.exp.activity.ShowFileActivity;
+import expense.exp.databinding.ActivityShowFileBinding;
+import expense.exp.databinding.ImagePickerDemoBinding;
 import gun0912.tedbottompicker.GridSpacingItemDecoration;
 import gun0912.tedbottompicker.TedBottomPicker;
 
@@ -98,14 +101,15 @@ public class ImagePickerDemo extends AppCompatActivity implements
 
     private int mCurrentFlash;
     private File file;
-    private CameraView mCameraView;
-    public ImageView cropedImage;
+   /* private CameraView mCameraView;
+    public ImageView cropedImage;*/
     private Handler mBackgroundHandler;
     private RecyclerView galleryView;
     ArrayList<Uri> selectedUriList;
     TedBottomPicker bottomSheetDialogFragment;
     private BottomSheetBehavior bottomSheetBehavior;
-    private FrameLayout bottomSheetView;
+    private final int PICK_IMAGE_CAMERA = 1;
+  //  private FrameLayout bottomSheetView;
     private String pickerType;
     String f_id;
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -113,14 +117,14 @@ public class ImagePickerDemo extends AppCompatActivity implements
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.take_picture:
-                    if (mCameraView != null) {
-                        mCameraView.takePicture();
-                    }
-//                    startActivityForResult(new Intent(ImagePickerDemo.this, ScanA.class), REQUEST_CODE);
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, PICK_IMAGE_CAMERA);
+                    binding.camera.takePicture();
+                    //                    startActivityForResult(new Intent(ImagePickerDemo.this, ScanA.class), REQUEST_CODE);
                     break;
                 case R.id.cancel_picture:
-                    mCameraView.setVisibility(View.VISIBLE);
-                    cropedImage.setVisibility(View.GONE);
+                    binding.camera.setVisibility(View.VISIBLE);
+                    binding.ivCrop.setVisibility(View.GONE);
                     break;
             }
         }
@@ -131,34 +135,29 @@ public class ImagePickerDemo extends AppCompatActivity implements
     private final int REQUEST_RECEIPT_CAPTURE = 105;
     private String image_path;
 
-
+    ImagePickerDemoBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.image_picker_demo);
-        mCameraView = (CameraView) findViewById(R.id.camera);
-        cropedImage = findViewById(R.id.iv_crop);
-        bottomSheetView = (FrameLayout) findViewById(R.id.container);
+        //setContentView(R.layout.image_picker_demo);
+        binding = ImagePickerDemoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         // setRecyclerView();
-        if (mCameraView != null) {
-            mCameraView.addCallback(mCallback);
+        if (binding.camera != null) {
+            binding.camera.addCallback(mCallback);
         }
 
         if (getIntent() != null) {
             pickerType = getIntent().getStringExtra("picker");
             f_id = getIntent().getStringExtra("f_id");
         }
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.take_picture);
-        cancelFab = (FloatingActionButton) findViewById(R.id.cancel_picture);
 
-        if (fab != null) {
-            fab.setOnClickListener(mOnClickListener);
-        }
-        if (cancelFab != null) {
-            cancelFab.setOnClickListener(mOnClickListener);
-        }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        binding.takePicture.setOnClickListener(mOnClickListener);
+        binding.cancelPicture.setOnClickListener(mOnClickListener);
+
+        setSupportActionBar(binding.toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);
@@ -170,7 +169,7 @@ public class ImagePickerDemo extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
         if (checkPermission()) {
-            mCameraView.start();
+            binding.camera.start();
             if (bottomSheetDialogFragment == null || !bottomSheetDialogFragment.isVisible()) {
 //                if (pickerType.equalsIgnoreCase("single")){
 //                    showBottomPicker();
@@ -216,7 +215,7 @@ public class ImagePickerDemo extends AppCompatActivity implements
         ft.add(R.id.container, bottomSheetDialogFragment);
         ft.commitAllowingStateLoss();
 
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView);
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.container);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -250,7 +249,7 @@ public class ImagePickerDemo extends AppCompatActivity implements
         ft.add(R.id.container, bottomSheetDialogFragment);
         ft.commitAllowingStateLoss();
 
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView);
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.container);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -269,8 +268,8 @@ public class ImagePickerDemo extends AppCompatActivity implements
 
     @Override
     protected void onPause() {
-        if (mCameraView != null)
-            mCameraView.stop();
+        if (binding.camera != null)
+            binding.camera.stop();
         super.onPause();
     }
 
@@ -290,7 +289,7 @@ public class ImagePickerDemo extends AppCompatActivity implements
 
     @Override
     public void onAspectRatioSelected(@NonNull AspectRatio ratio) {
-        if (mCameraView != null) {
+        if (binding.camera != null) {
             Toast.makeText(this, ratio.toString(), Toast.LENGTH_SHORT).show();
 //            mCameraView.setAspectRatio(ratio);
         }
@@ -364,9 +363,9 @@ public class ImagePickerDemo extends AppCompatActivity implements
 
                         @Override
                         public void run() {
-                            cropedImage.setVisibility(View.VISIBLE);
-                            mCameraView.setVisibility(View.GONE);
-                            cropedImage.setImageURI(Uri.fromFile(file));
+                            binding.ivCrop.setVisibility(View.VISIBLE);
+                            binding.camera.setVisibility(View.GONE);
+                            binding.ivCrop.setImageURI(Uri.fromFile(file));
                             startCrop(Uri.fromFile(file));
                             bottomSheetDialogFragment.iv_crop.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -378,9 +377,9 @@ public class ImagePickerDemo extends AppCompatActivity implements
                             bottomSheetDialogFragment.iv_done.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    cropedImage.setVisibility(View.GONE);
-                                    mCameraView.setVisibility(View.VISIBLE);
-                                    mCameraView.start();
+                                    binding.ivCrop.setVisibility(View.GONE);
+                                    binding.camera.setVisibility(View.VISIBLE);
+                                    binding.camera.start();
                                     if (image_path != null) {
                                         File file = new File(image_path);
                                         bottomSheetDialogFragment.onActivityResultCamera(Uri.fromFile(file));
@@ -428,7 +427,7 @@ public class ImagePickerDemo extends AppCompatActivity implements
     @Override
     public void setImage(File file) {
         Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-        cropedImage.setImageBitmap(myBitmap);
+        binding.ivCrop.setImageBitmap(myBitmap);
     }
 
 
@@ -462,7 +461,7 @@ public class ImagePickerDemo extends AppCompatActivity implements
         if (resultUri != null) {
 //            image_path.add(resultUri.getPath());
             image_path = resultUri.getPath();
-            cropedImage.setImageURI(Uri.fromFile(new File(image_path)));
+            binding.ivCrop.setImageURI(Uri.fromFile(new File(image_path)));
 //            adapter.updateList(image_path); // add this
 //            adapter.notifyDataSetChanged();
 
@@ -577,17 +576,17 @@ public class ImagePickerDemo extends AppCompatActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
 
             case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
 
                 if (grantResults.length > 0) {
                     boolean CameraPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean StoragePermission =
-                            grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean StoragePermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
                     if (CameraPermission && StoragePermission) {
                         // Permission Granted
-                        mCameraView.start();
+                        binding.camera.start();
                         showMultiBottomPicker();
                         Toast.makeText(ImagePickerDemo.this, "Permission Granted",
                                 Toast.LENGTH_LONG).show();
@@ -641,10 +640,11 @@ public class ImagePickerDemo extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         String folder_id = String.valueOf(f_id);
         startActivity(new Intent(getBaseContext(), ShowFileActivity.class)
                 .putExtra("f_id", folder_id)
-                .putExtra("isFrom","1"));
+                .putExtra("isFrom", "1"));
 
         finish();
     }

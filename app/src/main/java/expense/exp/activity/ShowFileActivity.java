@@ -1062,8 +1062,8 @@ public class ShowFileActivity extends AppCompatActivity implements MyDialogListe
     @SuppressLint("ResourceType")
    // @OnClick(R.id.select_camera)
     public void select_fromCamera(View view) {
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        startActivityForResult(intent, PICK_IMAGE_CAMERA);
+              //  Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+       // startActivityForResult(intent, PICK_IMAGE_CAMERA);
         Intent intent = new Intent(getApplicationContext(), ImagePickerDemo.class);
         intent.putExtra("picker", "multi");
         intent.putExtra("f_id", f_id);
